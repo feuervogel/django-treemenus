@@ -14,29 +14,30 @@ class TreemenusTestCase(TestCase):
 
     def setUp(self):
         # Install testapp
-        self.old_INSTALLED_APPS = settings.INSTALLED_APPS
-        settings.INSTALLED_APPS += ['treemenus.tests.fake_menu_extension']
-        load_app('treemenus.tests.fake_menu_extension')
-        call_command('flush', verbosity=0, interactive=False)
-        call_command('syncdb', verbosity=0, interactive=False)
+        #self.old_INSTALLED_APPS = settings.INSTALLED_APPS
+        #settings.INSTALLED_APPS += ['treemenus.tests.fake_menu_extension']
+        #load_app('treemenus.tests.fake_menu_extension')
+        #call_command('flush', verbosity=0, interactive=False)
+        #call_command('syncdb', verbosity=0, interactive=False)
 
         # since django's r11862 templatags_modules and app_template_dirs are cached
         # the cache is not emptied between tests
         # clear out the cache of modules to load templatetags from so it gets refreshed
-        template.templatetags_modules = []
+        #template.templatetags_modules = []
         
         # clear out the cache of app_directories to load templates from so it gets refreshed
-        app_directories.app_template_dirs = []
+        #app_directories.app_template_dirs = []
         # reload the module to refresh the cache
-        reload(app_directories)
+        #reload(app_directories)
         # Log in as admin
-        User.objects.create_superuser('super', 'super@test.com', 'secret')
+        User.objects.create_superuser(username='super', email='super@test.com', password='secret')
         login = self.client.login(username='super', password='secret')
         self.assertEqual(login, True)
 
     def tearDown(self):
         # Restore settings
-        settings.INSTALLED_APPS = self.old_INSTALLED_APPS
+        #settings.INSTALLED_APPS = self.old_INSTALLED_APPS
+        pass
             
     def test_view_add_item(self):
         menu_data = {
